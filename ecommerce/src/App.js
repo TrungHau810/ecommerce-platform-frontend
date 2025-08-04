@@ -6,24 +6,34 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from "./components/layout/Footer";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Cart from "./components/Cart";
+import { MyUserContext } from "./configs/Contexts";
+import { useReducer } from "react";
+import MyUserReducer from "./reducers/MyUserReducer";
 
 
 const App = () => {
+
+  let [user, dispatch] = useReducer(MyUserReducer, null);
+
   return (
-    <BrowserRouter>
-      <Header />
+    <MyUserContext.Provider value={[user, dispatch]}>
+      <BrowserRouter>
+        <Header />
 
-      <Container>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </Container>
+        <Container>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+        </Container>
 
-      <Footer />
+        <Footer />
 
-    </BrowserRouter>
+      </BrowserRouter>
+    </MyUserContext.Provider>
   );
 }
 

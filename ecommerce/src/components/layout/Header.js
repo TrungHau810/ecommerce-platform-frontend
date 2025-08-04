@@ -1,8 +1,24 @@
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import React from "react";
+import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
+import { MyUserContext } from "../../configs/Contexts";
+
 
 const Header = () => {
+
+    const [categories, setCategories] = useState([]);
+    const [user, dispatch] = useContext(MyUserContext);
+
+    useEffect(() => {
+        setCategories([
+            { name: "Điện thoại" },
+            { name: "Bánh kẹo" },
+            { name: "Đồ chơi" },
+            { name: "Quần áo" }
+        ])
+    }, []);
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -13,18 +29,27 @@ const Header = () => {
                         <Link to="/" className="nav-link">Trang chủ</Link>
                         <Nav.Link href="#link">Link</Nav.Link>
                         <NavDropdown title="Danh mục" id="basic-nav-dropdown">
-                            <Link className="nav-link" href="#action/3.1">Action</Link>
-                            <Link className="nav-link" href="#action/3.1">Action</Link>
-                            <Link className="nav-link" href="#action/3.2">Another action</Link>
-                            <Link className="nav-link" href="#action/3.3">Something</Link>
-                            <Link className="nav-link" href="#action/3.4">Separated link</Link>
+                            {categories.map(cate =>
+                                <Link className="nav-link" href="#action/3.1">{cate.name}</Link>
+                            )}
                         </NavDropdown>
-                        <Link to="/login" className="nav-link">Đăng nhập</Link>
-                        <Link to="/register" className="nav-link">Đăng ký</Link>
+                        <Link to="/cart"><FaShoppingCart /></Link>
+                    </Nav>
+
+                    <Nav className="ms-auto">
+                        {user === null ? (
+                            <>
+                                <Link to="/login" className="nav-link">Đăng nhập</Link>
+                                <Link to="/register" className="nav-link">Đăng ký</Link>
+                            </>
+                        ) : (
+                            <Button className="ms-2" variant="outline-danger"
+                                onClick={() => dispatch({ type: "logout" })}>Đăng xuất</Button>
+                        )}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
-        </Navbar>
+        </Navbar >
     );
 }
 
