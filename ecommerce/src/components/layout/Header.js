@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { MyUserContext } from "../../configs/Contexts";
+import Apis, { endpoints } from "../../configs/Apis";
 
 
 const Header = () => {
@@ -10,13 +11,14 @@ const Header = () => {
     const [categories, setCategories] = useState([]);
     const [user, dispatch] = useContext(MyUserContext);
 
+    const loadCategories = async () => {
+        let res = await Apis.get(endpoints['categories']);
+        console.log(res.data);
+        setCategories(res.data);
+    };
+
     useEffect(() => {
-        setCategories([
-            { name: "Điện thoại" },
-            { name: "Bánh kẹo" },
-            { name: "Đồ chơi" },
-            { name: "Quần áo" }
-        ])
+        loadCategories();
     }, []);
 
     return (

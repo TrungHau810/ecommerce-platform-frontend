@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { MyUserContext } from "../configs/Contexts";
@@ -26,6 +26,8 @@ const Login = () => {
         type: "password"
     }];
 
+    // const [token, setToken] = useState(null);
+
 
     const login = async (e) => {
         e.preventDefault();
@@ -39,6 +41,7 @@ const Login = () => {
             cookie.save('token', res.data.user.token);
 
             console.log(cookie.token);
+            // setToken(cookie.load("token"));
 
 
             dispatch({
@@ -46,7 +49,7 @@ const Login = () => {
                 "payload": res.data.user
             });
 
-            
+
             let next = q.get('next');
             nav(next ? next : "/");
 
@@ -59,6 +62,20 @@ const Login = () => {
 
         }
     }
+
+    // const test = async () => {
+    //     let res = await Apis.get(endpoints['profile'], {
+    //         headers: {
+    //             "Authorization": `Bearer ${cookie.load('token')}`
+    //         }
+    //     });
+
+    //     console.log("Thông tin user ", res.data);
+    // }
+
+    // useEffect(() => {
+    //     test();
+    // }, [token]);
 
 
     return (
