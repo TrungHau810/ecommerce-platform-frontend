@@ -11,6 +11,7 @@ import { MyUserContext } from "./configs/Contexts";
 import { useReducer } from "react";
 import MyUserReducer from "./reducers/MyUserReducer";
 import Store from "./components/Store";
+import ProductDetail from "./components/ProductDetail";
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/store/:id" element={<Store />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
           </Routes>
         </Container>
 

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { MyUserContext } from "../configs/Contexts";
-import Apis, { endpoints } from "../configs/Apis";
+import Apis, { authApis, endpoints } from "../configs/Apis";
 import cookie from 'react-cookies';
 
 
@@ -37,16 +37,16 @@ const Login = () => {
             let res = await Apis.post(endpoints['login'], {
                 ...user
             });
-            console.log(res.data);
-            cookie.save('token', res.data.user.token);
 
-            console.log(cookie.token);
-            // setToken(cookie.load("token"));
+            cookie.save('token', res.data.token);
+
+
+            let u = await authApis().get(endpoints['profile']);
 
 
             dispatch({
                 "type": "login",
-                "payload": res.data.user
+                "payload": u.data
             });
 
 

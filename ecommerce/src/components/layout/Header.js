@@ -1,4 +1,4 @@
-import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Button, Container, Image, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
@@ -30,12 +30,17 @@ const Header = () => {
                     <Nav className="me-auto">
                         <Link to="/" className="nav-link">Trang chủ</Link>
                         <Nav.Link href="#link">Link</Nav.Link>
-                        <NavDropdown title="Danh mục" id="basic-nav-dropdown">
-                            {categories.map(cate =>
-                                <Link className="nav-link" href="#action/3.1">{cate.name}</Link>
-                            )}
-                        </NavDropdown>
-                        <Link to="/cart"><FaShoppingCart /></Link>
+                        {user.role === "ROLE_CUSTOMER" ? <>
+                            <NavDropdown title="Danh mục" id="basic-nav-dropdown">
+                                {categories.map(cate =>
+                                    <Link className="nav-link" href="#action/3.1">{cate.name}</Link>
+                                )}
+                            </NavDropdown>
+                            <Link to="/cart"><FaShoppingCart /></Link>
+                        </> : <>
+                            <Link to="/my-store" className="nav-link">Cửa hàng</Link>
+                        </>}
+
                     </Nav>
 
                     <Nav className="ms-auto">
@@ -45,8 +50,13 @@ const Header = () => {
                                 <Link to="/register" className="nav-link">Đăng ký</Link>
                             </>
                         ) : (
-                            <Button className="ms-2" variant="outline-danger"
-                                onClick={() => dispatch({ type: "logout" })}>Đăng xuất</Button>
+                            <>
+                                <span className="me-2">Chào, <strong>{user.fullName}</strong></span>
+                                <Image src={user.avatar} roundedCircle width={40} height={40} className="me-2" alt="Avatar" />
+                                <Button className="ms-2" variant="outline-danger"
+                                    onClick={() => dispatch({ type: "logout" })}>Đăng xuất</Button>
+                            </>
+
                         )}
                     </Nav>
                 </Navbar.Collapse>

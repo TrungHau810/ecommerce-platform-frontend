@@ -13,15 +13,23 @@ export const endpoints = {
     "stores-detail": (id) => `/api/stores/${id}`,
     "products-store": (id) => `/api/stores/${id}/products`,
     "products": "api/products",
+    "product-detail": (id) => `/api/products/${id}`,
+
+    // Review
+    "reviews-product": (id) => `/api/products/${id}/reviews`,
 
     "profile": "/api/secure/profile",
 
 };
 
-export default axios.create({
+export const authApis = () => axios.create({
     baseURL: BASE_URL,
     headers: {
-        "Authorization": `Bearer ${cookie.load('token')}`
+        'Authorization': `Bearer ${cookie.load('token')}`
     }
+})
+
+export default axios.create({
+    baseURL: BASE_URL
 });
 

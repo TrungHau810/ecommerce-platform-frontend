@@ -12,13 +12,11 @@ const Home = () => {
 
     const loadStores = async () => {
         let res = await Apis.get(endpoints["stores"]);
-        console.log(res.data);
         setStores(res.data);
     }
 
     const loadProducts = async () => {
         let res = await Apis.get(endpoints['products']);
-        console.log(res.data);
         setProducts(res.data);
     }
 
@@ -67,7 +65,7 @@ const Home = () => {
             <h3 className="mt-2 mb-3 text-center"> Danh sách các sản phẩm</h3>
             <Row xs={1} md={3} className="g-4">
                 {products.map((product) => (
-                    <Product product={product} />
+                    <Product key={product.id} product={product} />
                 ))}
             </Row>
 
