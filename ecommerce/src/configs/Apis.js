@@ -18,7 +18,13 @@ export const endpoints = {
     // Review
     "reviews-product": (id) => `/api/products/${id}/reviews`,
 
+    "cart": (userId) => `api/cart/${userId}`,
+
+    "order": "/api/orders/my-oyrders",
+
     "profile": "/api/secure/profile",
+
+    "my-store": "/api/secure/stores/my-store",
 
 };
 

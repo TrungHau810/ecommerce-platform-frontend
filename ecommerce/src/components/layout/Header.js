@@ -1,8 +1,8 @@
-import { Button, Container, Image, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Badge, Button, Container, Image, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
-import { MyUserContext } from "../../configs/Contexts";
+import { MyCartContext, MyUserContext } from "../../configs/Contexts";
 import Apis, { endpoints } from "../../configs/Apis";
 
 
@@ -10,10 +10,10 @@ const Header = () => {
 
     const [categories, setCategories] = useState([]);
     const [user, dispatch] = useContext(MyUserContext);
+    const [cartCounter, dispatchCartCounter] = useContext(MyCartContext);
 
     const loadCategories = async () => {
         let res = await Apis.get(endpoints['categories']);
-        console.log(res.data);
         setCategories(res.data);
     };
 
@@ -30,16 +30,29 @@ const Header = () => {
                     <Nav className="me-auto">
                         <Link to="/" className="nav-link">Trang chủ</Link>
                         <Nav.Link href="#link">Link</Nav.Link>
-                        {user.role === "ROLE_CUSTOMER" ? <>
-                            <NavDropdown title="Danh mục" id="basic-nav-dropdown">
-                                {categories.map(cate =>
-                                    <Link className="nav-link" href="#action/3.1">{cate.name}</Link>
-                                )}
-                            </NavDropdown>
-                            <Link to="/cart"><FaShoppingCart /></Link>
-                        </> : <>
-                            <Link to="/my-store" className="nav-link">Cửa hàng</Link>
-                        </>}
+                        {user !== null ? (
+                            user.role === "ROLE_CUSTOMER" ? (
+                                <>
+                                    <NavDropdown title="Danh mục" id="basic-nav-dropdown">
+                                        {categories.map((cate, index) => (
+                                            <Link key={index} className="dropdown-item" to="#action/3.1">
+                                                {cate.name}
+                                            </Link>
+                                        ))}
+                                    </NavDropdown>
+                                    <Link to="/cart" className="nav-link">
+                                        <FaShoppingCart /><Badge bg="danger">{cartCounter}</Badge>
+                                    </Link>
+
+                                    <Link to="/order" className="nav-link">Đơn hàng</Link>
+                                </>
+                            ) : (
+                                <Link to="/my-store" className="nav-link">
+                                    Cửa hàng
+                                </Link>
+                            )
+                        ) : null}
+
 
                     </Nav>
 

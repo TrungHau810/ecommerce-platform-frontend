@@ -7,36 +7,46 @@ import Footer from "./components/layout/Footer";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Cart from "./components/Cart";
-import { MyUserContext } from "./configs/Contexts";
+import { MyCartContext, MyUserContext } from "./configs/Contexts";
 import { useReducer } from "react";
 import MyUserReducer from "./reducers/MyUserReducer";
 import Store from "./components/Store";
 import ProductDetail from "./components/ProductDetail";
+import MyCartReducer from "./reducers/MyCartReducer";
+import MyStore from "./components/MyStore";
+import Order from "./components/Order";
 
 
 const App = () => {
 
   let [user, dispatch] = useReducer(MyUserReducer, null);
+  let [cartCounter, dispatchCartCounter] = useReducer(MyCartReducer, 0);
 
   return (
     <MyUserContext.Provider value={[user, dispatch]}>
-      <BrowserRouter>
-        <Header />
+      <MyCartContext.Provider value={[cartCounter, dispatchCartCounter]}>
+        <BrowserRouter>
+          <Header />
 
-        <Container>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/store/:id" element={<Store />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-          </Routes>
-        </Container>
+          <Container>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/store/:id" element={<Store />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
 
-        <Footer />
+              <Route path="/my-store" element={<MyStore />} />
 
-      </BrowserRouter>
+              <Route path="/order" element={<Order />} />
+            </Routes>
+          </Container>
+
+          <Footer />
+
+        </BrowserRouter>
+      </MyCartContext.Provider>
     </MyUserContext.Provider>
   );
 }

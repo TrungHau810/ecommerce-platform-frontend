@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import Apis, { endpoints } from "../configs/Apis";
-import { useContext, useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
 import { Alert, Button, Card, Col, Form, Image, Row } from "react-bootstrap";
 import { MyUserContext } from "../configs/Contexts";
 
@@ -16,13 +16,11 @@ const ProductDetail = () => {
     const loadProductDetail = async () => {
         let res = await Apis.get(endpoints['product-detail'](id));
         setProduct(res.data);
-        console.log(res.data);
     }
 
     const loadReviews = async () => {
         let res = await Apis.get(endpoints['reviews-product'](id));
         setReviews(res.data);
-        console.log(res.data);
     }
 
     useEffect(() => {
