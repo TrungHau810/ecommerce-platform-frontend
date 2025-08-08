@@ -26,6 +26,8 @@ export const endpoints = {
 
     "my-store": "/api/secure/stores/my-store",
 
+    "my-company": "/api/secure/company",
+
 };
 
 export const authApis = () => axios.create({

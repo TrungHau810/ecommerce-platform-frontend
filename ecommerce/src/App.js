@@ -15,6 +15,8 @@ import ProductDetail from "./components/ProductDetail";
 import MyCartReducer from "./reducers/MyCartReducer";
 import MyStore from "./components/MyStore";
 import Order from "./components/Order";
+import Company from "./components/Company";
+import RegisterCompany from "./components/RegisterCompany";
 
 
 const App = () => {
@@ -40,6 +42,9 @@ const App = () => {
               <Route path="/my-store" element={<MyStore />} />
 
               <Route path="/order" element={<Order />} />
+
+              <Route path="/company" element={<Company />} />
+              <Route path="/register-company" element={<RegisterCompany />} />
             </Routes>
           </Container>
 

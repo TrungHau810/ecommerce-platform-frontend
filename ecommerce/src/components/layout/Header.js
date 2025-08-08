@@ -29,7 +29,6 @@ const Header = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Link to="/" className="nav-link">Trang chủ</Link>
-                        <Nav.Link href="#link">Link</Nav.Link>
                         {user !== null ? (
                             user.role === "ROLE_CUSTOMER" ? (
                                 <>

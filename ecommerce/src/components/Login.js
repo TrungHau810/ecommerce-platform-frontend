@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { MyUserContext } from "../configs/Contexts";
@@ -13,6 +13,7 @@ const Login = () => {
     const [user, setUser] = useState({});
     const [q] = useSearchParams();
     const [msg, setMsg] = useState(null);
+    const [successMsg, setSuccessMsg] = useState(null);
 
     const nav = useNavigate();
 
@@ -26,13 +27,12 @@ const Login = () => {
         type: "password"
     }];
 
-    // const [token, setToken] = useState(null);
-
 
     const login = async (e) => {
         e.preventDefault();
 
         try {
+            setMsg(null);
             setLoading(true);
             let res = await Apis.post(endpoints['login'], {
                 ...user
@@ -49,34 +49,22 @@ const Login = () => {
                 "payload": u.data
             });
 
+            setSuccessMsg("Đăng nhập thành công");
 
             let next = q.get('next');
-            nav(next ? next : "/");
+            setTimeout(() => {
+                nav(next ? next : "/");
+            }, 1000);
 
         } catch (error) {
             console.error(error);
-            setMsg(`Đăng nhập thất bại! <br> Vui lòng kiểm tra lại thông tin đăng nhập`);
+            setMsg(`Tên đăng nhập hoặc mật khẩu không đúng`);
 
         } finally {
             setLoading(false);
 
         }
     }
-
-    // const test = async () => {
-    //     let res = await Apis.get(endpoints['profile'], {
-    //         headers: {
-    //             "Authorization": `Bearer ${cookie.load('token')}`
-    //         }
-    //     });
-
-    //     console.log("Thông tin user ", res.data);
-    // }
-
-    // useEffect(() => {
-    //     test();
-    // }, [token]);
-
 
     return (
         <>
@@ -87,7 +75,7 @@ const Login = () => {
                 <Card.Body>
                     <h3 className="text-center mt-4 mb-4">Đăng nhập</h3>
                     {msg ? <Alert variant="danger">{msg}</Alert> : <></>}
-                    {/* <Alert variant="info">Test info</Alert> */}
+                    {successMsg && <Alert variant="info">{successMsg}</Alert>}
                     <Form onSubmit={login}>
                         {info.map(i =>
                             <Form.Control
@@ -111,7 +99,6 @@ const Login = () => {
                                 )}
                             </Button>
                         </div>
-
                     </Form>
                 </Card.Body>
             </Card >
