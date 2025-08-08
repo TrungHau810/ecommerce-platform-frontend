@@ -6,6 +6,7 @@ import Product from "./layout/Product";
 import { MyUserContext } from "../configs/Contexts";
 import cookie from 'react-cookies';
 import Company from "./Company";
+import VerifiedAccount from "../VerifiedAccount";
 
 
 const Home = () => {
@@ -87,7 +88,7 @@ const Home = () => {
 
     return (
         <>
-            {!user || (user && user.role != "ROLE_SELLER") ? <>
+            {!user || (user && user.role === "ROLE_CUSTOMER") ? <>
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Tìm kiếm cửa hàng</Form.Label>
@@ -163,6 +164,10 @@ const Home = () => {
 
             {user && user.role === "ROLE_SELLER" ? <>
                 <Company />
+            </> : <></>}
+
+            {user && user.role === "ROLE_STAFF" ? <>
+                <VerifiedAccount />
             </> : <></>}
 
         </>

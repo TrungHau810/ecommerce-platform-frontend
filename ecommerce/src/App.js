@@ -17,6 +17,7 @@ import MyStore from "./components/MyStore";
 import Order from "./components/Order";
 import Company from "./components/Company";
 import RegisterCompany from "./components/RegisterCompany";
+import Stats from "./components/Stats";
 
 
 const App = () => {
@@ -45,6 +46,8 @@ const App = () => {
 
               <Route path="/company" element={<Company />} />
               <Route path="/register-company" element={<RegisterCompany />} />
+
+              <Route path="/stats" element={<Stats />} />
             </Routes>
           </Container>
 

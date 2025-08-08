@@ -46,9 +46,10 @@ const Header = () => {
                                     <Link to="/order" className="nav-link">Đơn hàng</Link>
                                 </>
                             ) : (
-                                <Link to="/my-store" className="nav-link">
-                                    Cửa hàng
-                                </Link>
+                                <>
+                                    <Link to="/my-store" className="nav-link">Cửa hàng</Link>
+                                    <Link to="/stats" className="nav-link">Thống kê</Link>
+                                </>
                             )
                         ) : null}
 

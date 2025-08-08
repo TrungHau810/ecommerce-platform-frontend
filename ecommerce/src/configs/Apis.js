@@ -28,6 +28,11 @@ export const endpoints = {
 
     "my-company": "/api/secure/company",
 
+    "stats": "/api/secure/stats-store",
+
+    "verified-users": "/api/users/not-verified",
+    "update-verified": (id) => `/api/users/${id}/is-verified`,
+
 };
 
 export const authApis = () => axios.create({
