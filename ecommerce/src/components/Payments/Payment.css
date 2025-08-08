@@ -1,0 +1,42 @@
+.payment-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.payment-methods {
+    margin-top: 20px;
+}
+
+.payment-method-item {
+    margin-bottom: 15px;
+}
+
+.payment-summary {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.payment-status-card {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.payment-callback {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.payment-success {
+    color: #28a745;
+}
+
+.payment-failed {
+    color: #dc3545;
+}
+
+.payment-pending {
+    color: #ffc107;
+}

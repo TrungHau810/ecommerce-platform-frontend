@@ -20,9 +20,10 @@ export const endpoints = {
 
     "cart": (userId) => `api/cart/${userId}`,
 
-    "order": "/api/orders/my-oyrders",
+    "order": "/api/orders/my-orders",
 
     "profile": "/api/secure/profile",
+
 
     "my-store": "/api/secure/stores/my-store",
 
@@ -32,6 +33,18 @@ export const endpoints = {
 
     "verified-users": "/api/users/not-verified",
     "update-verified": (id) => `/api/users/${id}/is-verified`,
+
+
+
+    //cart
+
+    "vnpay-create": "/api/payments/vnpay/create",
+
+    
+    "vnpay-status": (orderId) => `/api/payments/vnpay/status/${orderId}`,
+    "vnpay-verify": "/api/payments/vnpay/verify",
+    "payments-history": "/api/payments/history",
+
 
 };
 

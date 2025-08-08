@@ -1,8 +1,11 @@
 import { Badge, Button, Container, Image, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import React, { useContext, useEffect, useReducer, useState } from "react";
+
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
-import { MyCartContext, MyUserContext } from "../../configs/Contexts";
+
+import { useCart } from "../../configs/CartContext";
+import { MyUserContext } from "../../configs/Contexts";
 import Apis, { endpoints } from "../../configs/Apis";
 
 
@@ -10,7 +13,10 @@ const Header = () => {
 
     const [categories, setCategories] = useState([]);
     const [user, dispatch] = useContext(MyUserContext);
-    const [cartCounter, dispatchCartCounter] = useContext(MyCartContext);
+
+    const { getTotalItems } = useCart();
+    const cartCounter = getTotalItems(); 
+
 
     const loadCategories = async () => {
         let res = await Apis.get(endpoints['categories']);
@@ -29,6 +35,10 @@ const Header = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Link to="/" className="nav-link">Trang chủ</Link>
+                        <Link to="/payment-history" className="nav-link">
+                                    Lịch sử thanh toán
+                                </Link>
+
                         {user !== null ? (
                             user.role === "ROLE_CUSTOMER" ? (
                                 <>
@@ -52,6 +62,7 @@ const Header = () => {
                                 </>
                             )
                         ) : null}
+
 
 
                     </Nav>
