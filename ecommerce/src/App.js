@@ -12,12 +12,18 @@ import { useReducer } from "react";
 import MyUserReducer from "./reducers/MyUserReducer";
 import Store from "./components/Store";
 import ProductDetail from "./components/ProductDetail";
+
 import MyCartReducer from "./reducers/MyCartReducer";
 import MyStore from "./components/MyStore";
 import Order from "./components/Order";
 import Company from "./components/Company";
 import RegisterCompany from "./components/RegisterCompany";
 import Stats from "./components/Stats";
+
+import PaymentCallback from './components/Payments/PaymentCallback';
+import { CartProvider } from "./configs/CartContext";
+import PaymentHistory from "./components/PaymentHistory";
+
 
 
 const App = () => {
@@ -27,20 +33,28 @@ const App = () => {
 
   return (
     <MyUserContext.Provider value={[user, dispatch]}>
-      <MyCartContext.Provider value={[cartCounter, dispatchCartCounter]}>
-        <BrowserRouter>
-          <Header />
 
-          <Container>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/store/:id" element={<Store />} />
-              <Route path="/product/:id" element={<ProductDetail />} />
+      <MyCartContext.Provider value={[cartCounter, dispatchCartCounter]}>
+    
+      <CartProvider>
+        <BrowserRouter>
+        <Header />
+
+        <Container>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/store/:id" element={<Store />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/payment/callback" element={<PaymentCallback />} />
+            <Route path="/payment-history" element={<PaymentHistory />} />
+         
+
 
               <Route path="/my-store" element={<MyStore />} />
+
 
               <Route path="/order" element={<Order />} />
 
@@ -54,7 +68,12 @@ const App = () => {
           <Footer />
 
         </BrowserRouter>
+        </CartProvider>
       </MyCartContext.Provider>
+
+     
+     
+
     </MyUserContext.Provider>
   );
 }

@@ -42,7 +42,7 @@ const Register = (role) => {
             setMsg("Mật khẩu không được để trống");
             return false;
         }
-        if (user.confirm != user.password) {
+        if (user.confirm !== user.password) {
             setMsg("Mật khẩu không khớp");
             return false;
         }
